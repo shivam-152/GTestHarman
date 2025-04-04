@@ -27,3 +27,25 @@ TEST(StateMapperTest, DirectEnumMapping) {
     EXPECT_EQ(StateMapper::mapToAppState(QuicktelState::UPDATE), AppState::UPDATE_IN_PROGRESS);
     EXPECT_EQ(StateMapper::mapToAppState(QuicktelState::UNKNOWN), AppState::INVALID_STATE);
 }
+
+// Additional test cases
+
+TEST(StateMapperTest, MixedCaseMappings) {
+    EXPECT_EQ(StateMapper::mapToAppState("sUcCeEd"), AppState::INVALID_STATE);
+    EXPECT_EQ(StateMapper::mapToAppState("UpDaTe"), AppState::INVALID_STATE);
+}
+
+TEST(StateMapperTest, WhitespaceMappings) {
+    EXPECT_EQ(StateMapper::mapToAppState(" SUCCEED "), AppState::INVALID_STATE);
+    EXPECT_EQ(StateMapper::mapToAppState("UPDATE "), AppState::INVALID_STATE);
+}
+
+TEST(StateMapperTest, SpecialCharacterMappings) {
+    EXPECT_EQ(StateMapper::mapToAppState("SUCCEED!"), AppState::INVALID_STATE);
+    EXPECT_EQ(StateMapper::mapToAppState("UPDATE@"), AppState::INVALID_STATE);
+}
+
+TEST(StateMapperTest, EnumMappingWithInvalidState) {
+    EXPECT_EQ(StateMapper::mapToAppState(QuicktelState::UNKNOWN), AppState::INVALID_STATE);
+    EXPECT_EQ(StateMapper::mapToAppState(static_cast<QuicktelState>(999)), AppState::INVALID_STATE); // Invalid enum value
+}
