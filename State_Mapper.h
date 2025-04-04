@@ -13,7 +13,7 @@ enum class QuicktelState {
     UNKNOWN
 };
 
-// Our application states
+
 enum class AppState {
     SUCCESS,
     UPDATE_IN_PROGRESS,
@@ -26,11 +26,11 @@ enum class AppState {
 
 class StateMapper {
 public:
-    // Only allow exact string matches
+
     static AppState mapToAppState(const std::string& quicktelState);
     
-    // Alternative enum mapping
+    
     static AppState mapToAppState(QuicktelState quicktelState);
 };
 
-#endif // STATEMAPPER_H
+#endif 
